@@ -575,7 +575,18 @@ after the upgrade using the command:
 *************** Post Upgrade Fixup Script Complete ********************
 
 PL/SQL procedure successfully completed.
+````
 
+#### - UPGRADE 확인
+```
+SQL> @/u01/app/oracle/product\12.1.0.2\rdbms\admin\utlu121s.sql
+SQL> @/u01/app/oracle/product\12.1.0.2\rdbms\admin\catuppst.sql
+SQL> @/u01/app/oracle/product\12.1.0.2\rdbms\admin\utlrp.sql
+SQL> @/u01/app/oracle/product\12.1.0.2\rdbms\admin\utluiobj.sql                                             
+```
+
+
+```
 SQL> ^C 
 
 SQL> startup
@@ -590,6 +601,8 @@ SQL>  select * from registry$sys_inv_objs;
 
 no rows selected
 ```
+
+
 
 ```
 SQL> select comp_name, version, status from dba_registry;
@@ -616,4 +629,4 @@ Oracle OLAP API                                                                 
 13 rows selected.
 ```
 
-```
+
