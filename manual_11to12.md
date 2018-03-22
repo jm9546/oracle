@@ -385,7 +385,7 @@ after the upgrade using the command:
                    ***********************************
 ```
 
-# 1) WARNING1 & ERROR solution
+### 1) WARNING1 & ERROR solution
 
 
 ```
@@ -394,10 +394,9 @@ after the upgrade using the command:
 
 //processes=150 => processes=300
 //compatible='10.2.0' =>compatible='11.0.0'
-
 ```
 
-# 2) WARNING2 solution
+### 2) WARNING2 solution
 
 ```
 SQL> SET ECHO ON;
@@ -406,7 +405,7 @@ SQL> !find /u01 -name emremove.sql
 SQL> @emremove.sql
 ```
 
-# 3) WARNING3 solution
+### 3) WARNING3 solution
 ```
 SQL> @/u01/app/oracle/product/12.1.0.2/rdbms/admin/utluppkg.sql
 SQL> SET SERVEROUTPUT ON;
@@ -414,7 +413,7 @@ SQL> exec dbms_preup.run_fixup_and_report('INVALID_SYS_TABLEDATA')
 SQL> SET SERVEROUTPUT OFF;
 ```
 
-# 3) WARNING3 solution
+### 4) WARNING3 solution
 ```
 SQL> ORACLE_HOME/olap/admin/catnoamd.sql
 SQL> EXECUTE dbms_stats.gather_dictionary_stats;
@@ -424,7 +423,7 @@ SQL> exit
 ```
 
 
-# 4) Add solution?
+### 5) Add solution?
 ```
 SQL> ALTER SYSTEM SET COMPATIBLE = '12.1.0' SCOPE=SPFILE;
 ALTER SYSTEM SET COMPATIBLE = '12.1.0' SCOPE=SPFILE
@@ -457,10 +456,9 @@ Database opened.
 SQL>  ALTER SYSTEM SET COMPATIBLE='12.1.0' SCOPE=SPFILE;
 
 System altered.
-
 ```
 
-- ORACLE_HOME
+#### - ORACLE_HOME
 ```
 $vi .bash_profile
 // 11.2.0.4 -> 12.1.0.2 로 수정
@@ -470,7 +468,7 @@ $vi /etc/oratab
 // 12.1.0.2 로 수정
 ```
 
-- CP
+#### - CP 11.2.0.4 -> 12.1.0.2
 ```
 # cd $ORACLE_HOME/dbs 
 # cp $ORACLE_BASE/product/11.2.0.4/dbs/orapworcl . 
@@ -489,6 +487,7 @@ $vi /etc/oratab
 # cp $ORACLE_BASE/product/11.2.0.4/sqlplus/admin/glogin.sql .
 ```
 
+#### - upgrade
 ```
 SQL> startup migrate
 > create tablespace sysaux datafile '/u01/app/oracle/oradata/orcl/sysaux01.dbf
@@ -499,14 +498,10 @@ SQL> startup migrate
 
 Tablespace created.
 ```
-
-- upgrade
 ```
 [oracle@oracle55 ~]$ cd $ORACLE_HOME/rdbms/admin
 [oracle@oracle55 admin]$ $ORACLE_HOME/perl/bin/perl catctl.pl -n 4 catupgrd.sql
 ```
-
-
 ```
 SQL> startup
 SQL> @/u01/app/oracle/cfgtoollogs/orcl/preupgrade/postupgrade_fixups.sql
